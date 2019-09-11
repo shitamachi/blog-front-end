@@ -4,6 +4,8 @@ import {RouteComponentProps, Route, Switch, withRouter} from "react-router-dom"
 import ArticleList from "../ArticleList/ArticleList"
 import ArticleDetail from "../ArticleDetail/ArticleDetail"
 import {ClickParam} from "antd/es/menu"
+import './BlogLayout.css'
+import Archive from "../Archive/Archive"
 
 const {Header, Content, Footer} = Layout
 
@@ -13,7 +15,9 @@ const BlogLayout: React.FC<RouteComponentProps<{ id: string }>> = (props: RouteC
 
     const handledClick = (params:ClickParam) => {
         switch (params.key) {
-            case "1": history.push("/")
+            case "1": history.push("/");break;
+            case "2": history.push("/archive");break;
+            default: history.push("/");break;
         }
     }
 
@@ -29,7 +33,7 @@ const BlogLayout: React.FC<RouteComponentProps<{ id: string }>> = (props: RouteC
                     onClick={handledClick}
                 >
                     <Menu.Item key="1">主页</Menu.Item>
-                    <Menu.Item key="2">nav 2</Menu.Item>
+                    <Menu.Item key="2">归档</Menu.Item>
                     <Menu.Item key="3">nav 3</Menu.Item>
                 </Menu>
             </Header>
@@ -43,10 +47,11 @@ const BlogLayout: React.FC<RouteComponentProps<{ id: string }>> = (props: RouteC
                     <Switch>
                         <Route exact path="/" component={ArticleList}/>
                         <Route exact path="/article/:id" component={ArticleDetail}/>
+                        <Route exact path='/archive' component={Archive} />
                     </Switch>
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Footer style={{textAlign: 'center'}}>2019 Blog Created by Jiang Guo</Footer>
         </Layout>
     )
 }
