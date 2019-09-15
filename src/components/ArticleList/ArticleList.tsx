@@ -1,7 +1,6 @@
 import React from "react"
 import {getAllArticles, Response} from '../../api/api'
 import ArticleItem from "../ArticleItem/ArticleItem"
-import {AxiosResponse} from "axios"
 
 export interface Article {
     id: number
@@ -10,10 +9,6 @@ export interface Article {
     preview?: string
     date: string
 }
-
-// interface IArticleListProps {
-//     articles: Article[]
-// }
 
 interface IArticleListState {
     articles: Array<Article>
