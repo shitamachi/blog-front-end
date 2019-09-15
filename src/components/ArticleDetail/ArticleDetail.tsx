@@ -1,37 +1,56 @@
 import React, {useEffect, useState} from "react"
 import ArticleList, {Article} from "../ArticleList/ArticleList"
-import {getArticleById} from '../../api/api'
-import {RouteComponentProps} from 'react-router-dom'
+import {getArticleById, getAllCategoriesByArticleId} from '../../api/api'
+import {RouteComponentProps, Link} from 'react-router-dom'
 import {Typography} from "antd"
 import './ArticleDetail.css'
 import ReactMarkdown from "react-markdown"
-const {Title, Text} = Typography
+import Categories, {ICategory} from "../Categories/Categories";
+
+const {Title, Text} = Typography;
 
 interface Params {
     id: string
 }
 
-const ArticleDetail: React.FC<RouteComponentProps<Params>> = (props: RouteComponentProps<Params>) => {
-    const [article, setArticle] = useState<Article>(
-        {content: "", date: "", id: 0, title: ""}
-    )
+interface IArticleDetailState {
+    article: Article
+    categories: ICategory[]
+}
 
+class ArticleDetail extends React.Component<RouteComponentProps<Params>, IArticleDetailState> {
 
-    useEffect(() => {
-        getArticleById(props.match.params.id)
-            .then((r: Article | void) => {setArticle((r as Article))})
-    }, [props.match.params.id])
+    constructor(props: RouteComponentProps<Params>) {
+        super(props);
+        this.state = {
+            article: {content: "", date: "", id: 0, title: ""},
+            categories: []
+        }
+    }
 
-    return (
-        <Typography >
-            <Title>{article.title}</Title>
-            <Text className='meta'>{new Date(article.date).toLocaleString()}</Text>
-            <Text className='meta'>{article.title}</Text>
-            <Text className='meta'>{`共 ${article.content.trim().length} 字`}</Text>
-            <Text className='meta'>{`或需要 ${Math.floor(article.content.trim().length / 300)} 分钟来阅读`}</Text>
-            <ReactMarkdown source={article.content}/>
-        </Typography>
-    )
+    async componentDidMount(): Promise<void> {
+        let articleRep: Article | void = await getArticleById(this.props.match.params.id)
+        let categoriesRep: ICategory[] | void = await getAllCategoriesByArticleId(this.props.match.params.id)
+        this.setState({categories: categoriesRep as ICategory[]});
+        this.setState({article: articleRep as Article});
+        console.log(this.state);
+
+    }
+
+    render() {
+        return (
+            <Typography>
+                <Title>{this.state.article.title}</Title>
+                <Text className='meta'>{new Date(this.state.article.date).toLocaleString()}</Text>
+                <Categories categories={this.state.categories}/>
+                <Text className='meta'>{`共 ${this.state.article.content.trim().length} 字`}</Text>
+                <Text
+                    className='meta'>{`或需要 ${Math.floor(this.state.article.content.trim().length / 300)} 分钟来阅读`}</Text>
+                <ReactMarkdown source={this.state.article.content}/>
+            </Typography>
+        )
+    }
 }
 
 export default ArticleDetail
+
