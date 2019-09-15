@@ -6,6 +6,7 @@ import ArticleDetail from "../ArticleDetail/ArticleDetail"
 import {ClickParam} from "antd/es/menu"
 import './BlogLayout.css'
 import Archive from "../Archive/Archive"
+import CategoriesList from "../CategoriesList"
 
 const {Header, Content, Footer} = Layout
 
@@ -17,6 +18,7 @@ const BlogLayout: React.FC<RouteComponentProps<{ id: string }>> = (props: RouteC
         switch (params.key) {
             case "1": history.push("/");break;
             case "2": history.push("/archive");break;
+            case "3": history.push("/category");break;
             default: history.push("/");break;
         }
     }
@@ -28,13 +30,14 @@ const BlogLayout: React.FC<RouteComponentProps<{ id: string }>> = (props: RouteC
                 <Menu
                     theme="light"
                     mode="horizontal"
+                    //TODO refresh page will select default item incorrectly 刷新后会错误选中默认
                     defaultSelectedKeys={['1']}
                     style={{lineHeight: '64px'}}
                     onClick={handledClick}
                 >
                     <Menu.Item key="1">主页</Menu.Item>
                     <Menu.Item key="2">归档</Menu.Item>
-                    <Menu.Item key="3">nav 3</Menu.Item>
+                    <Menu.Item key="3">分类</Menu.Item>
                 </Menu>
             </Header>
             <Content style={{padding: '0 50px'}}>
@@ -48,6 +51,7 @@ const BlogLayout: React.FC<RouteComponentProps<{ id: string }>> = (props: RouteC
                         <Route exact path="/" component={ArticleList}/>
                         <Route exact path="/article/:id" component={ArticleDetail}/>
                         <Route exact path='/archive' component={Archive} />
+                        <Route exact path="/category" component={CategoriesList} />
                     </Switch>
                 </div>
             </Content>
