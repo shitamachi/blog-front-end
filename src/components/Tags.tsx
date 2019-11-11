@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react"
 import {Tag, TagStore} from "../stores/TagStore"
 import {Tag as AntdTag} from 'antd'
 
-const colors: string[] = ["magenta", "red", "volcano", "orange",
+export const colors: string[] = ["magenta", "red", "volcano", "orange",
     "gold", "lime", "green", "cyan", "blue", "geekblue", "purple"]
 
 @inject("tag")
@@ -17,6 +17,11 @@ export class Tags extends React.Component<{ tag?: TagStore, articleId: number },
         this.setState({tags: this.props.tag!.tagsWithArticle})
     }
 
+    handleClick = (e: React.MouseEvent, tagId?: number) => {
+        e.preventDefault()
+        window.location.href = '/tags'
+    }
+
     render() {
         return (
             <div style={{marginTop: "10px", marginBottom: "7px"}}>
@@ -24,7 +29,9 @@ export class Tags extends React.Component<{ tag?: TagStore, articleId: number },
                     this.state.tags.map((tag: Tag, index: number) =>
                         //TODO tag's color should bind to a constant special one in database
                         <AntdTag color={colors[Math.floor(Math.random() * 10 + 1)]}
-                                 key={index}>
+                                 key={index}
+                                 onClick={this.handleClick}
+                        >
                             {tag.name}
                         </AntdTag>)
                 }

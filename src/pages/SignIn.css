@@ -1,0 +1,8 @@
+.input>* {
+    margin-top: 7px;
+    margin-bottom: 7px
+}
+
+.input>Button {
+    margin-right: 7px
+}

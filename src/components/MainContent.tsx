@@ -1,17 +1,23 @@
 import React from "react"
-import {Route, Switch} from "react-router"
-import {Breadcrumb} from "antd"
+import { Route, Switch } from "react-router"
+import { Breadcrumb } from "antd"
 import ArticleList from "./ArticleList/ArticleList"
 import ArticleDetail from "./ArticleDetail/ArticleDetail"
 import Archive from "./Archive/Archive"
 import CategoriesList from "./CategoriesList"
-import {Layout} from 'antd'
-import {inject, observer} from "mobx-react"
-import {ArticleStore} from "../stores/ArticleStore"
-import {RouterStore} from "mobx-react-router"
-import {NavLink} from "react-router-dom"
+import { Layout } from 'antd'
+import { inject, observer } from "mobx-react"
+import { ArticleStore } from "../stores/ArticleStore"
+import { RouterStore } from "mobx-react-router"
+import { NavLink } from "react-router-dom"
+import { SignIn } from "../pages/SignIn"
+import { PrivateRoute } from "../pages/Authorized"
+import { Test } from "../pages/Test"
+import {SignUp} from "../pages/SignUp"
+import NotFound from "../pages/NotFound"
+import {TagsList} from "./TagsList"
 
-const {Content} = Layout
+const { Content } = Layout
 
 interface IMainContentProps {
     article?: ArticleStore
@@ -31,9 +37,9 @@ class MainContent extends React.Component<IMainContentProps> {
             .split("/")
             .filter((p: string) => p !== "")
         return (
-            <Content style={{padding: '0 50px'}}>
+            <Content style={{ padding: '0 50px' }}>
                 {/*TODO maybe should extract as a stateless component*/}
-                <Breadcrumb style={{margin: '16px 0'}}>
+                <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item><NavLink to={`/`}>Home</NavLink></Breadcrumb.Item>
                     {
                         path.map((value, index) =>
@@ -44,12 +50,17 @@ class MainContent extends React.Component<IMainContentProps> {
                         )
                     }
                 </Breadcrumb>
-                <div style={{background: '#fff', padding: 24, minHeight: 280}}>
+                <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
                     <Switch>
-                        <Route exact path="/" component={ArticleList}/>
-                        <Route exact path="/article/:id" component={ArticleDetail}/>
-                        <Route exact path='/archive' component={Archive}/>
-                        <Route exact path="/category" component={CategoriesList}/>
+                        <Route exact path="/" component={ArticleList} />
+                        <Route exact path="/article/:id" component={ArticleDetail} />
+                        <Route exact path='/archive' component={Archive} />
+                        <Route exact path="/category" component={CategoriesList} />
+                        <Route exact path="/tags" component={TagsList} />
+                        <Route exact path="/login" component={SignIn} />
+                        <Route exact path="/register" component={SignUp} />
+                        <Route path="/test" component={Test} />
+                        {/* <Route path="*" component={NotFound}/> */}
                     </Switch>
                 </div>
             </Content>

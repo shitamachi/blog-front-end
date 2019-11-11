@@ -3,7 +3,7 @@ import {getAllArticles} from '../../api/api'
 import ArticleItem from "../ArticleItem/ArticleItem"
 
 export interface Article {
-    id: number
+    id?: number
     title: string
     content: string
     preview?: string
