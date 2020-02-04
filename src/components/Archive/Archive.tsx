@@ -31,7 +31,7 @@ class Archive extends React.Component<{}, IArchiveState> {
                     key={index}
                     itemLayout="horizontal"
                     bordered={false}
-                    header={`${archive.year}年 / ${archive.month}月`}
+                    header={`${archive.year}年 / ${archive.month}月 / ${archive.day}日`}
                     footer={<div/>}
                     style={{marginBottom: "17px"}}
                     dataSource={archive.articles}

@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import { SignIn } from "./SignIn";
+import { SignIn } from "./login/SignIn";
 
+// for debug and test
 export const Test = (props: any) => {
     console.log(props);
     console.log(props.match.path);

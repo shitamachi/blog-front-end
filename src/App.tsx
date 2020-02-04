@@ -1,39 +1,21 @@
 import React from 'react'
-import BlogLayout from "./components/Layout/BlogLayout"
-import {Router} from "react-router"
-import {Provider} from "mobx-react"
-import {RouterStore, syncHistoryWithStore} from 'mobx-react-router'
-import {createBrowserHistory} from 'history'
-import {configure} from "mobx"
-import {TagStore} from "./stores/TagStore"
-import {ArticleStore} from "./stores/ArticleStore"
-import { ConnectStore } from './stores/ConnectStore'
-import { BasicLayout } from './components/Layout/BasicLayout'
-import {UserStore} from "./stores/UserStore"
+import { BasicLayout } from './layouts/BasicLayout'
+import { Provider } from "react-redux"
+import configureStore from "./stores"
+import { ConnectedRouter } from "connected-react-router"
+import { PersistGate } from "redux-persist/integration/react"
+import { history } from "@/reducers"
 
-configure({
-    enforceActions: "always"
-})
-
-const routingStore = new RouterStore()
-const browserHistory = createBrowserHistory()
-const history = syncHistoryWithStore(browserHistory, routingStore)
-
-const stores = {
-    article: new ArticleStore(),
-    tag: new TagStore(),
-    connect: new ConnectStore(),
-    user: new UserStore(),
-    routing: routingStore,
-}
+export const { store, persistor } = configureStore()
 
 const App: React.FC = () => {
     return (
-        <Provider {...stores}>
-            <Router history={history}>
-                {/* <BlogLayout/> */}
-                <BasicLayout />
-            </Router>
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <BasicLayout />
+                </PersistGate>
+            </ConnectedRouter>
         </Provider>
     )
 }

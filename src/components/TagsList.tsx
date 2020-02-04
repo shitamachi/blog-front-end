@@ -3,22 +3,21 @@ import {getAllTagsWithArticles} from "../api/api"
 import {Tabs} from "antd"
 import {Article} from "./ArticleList/ArticleList"
 import {Link} from "react-router-dom"
-import {ICategoriesList} from "./CategoriesList"
-import {Tag} from "../stores/TagStore"
+import { Tag } from "@/models/TagState"
 
 const {TabPane} = Tabs
 
-export interface ITagsListList extends Tag {
+export interface ITagsList extends Tag {
     articles: Article[]
 }
 
 interface ITagsListState {
-    list: ITagsListList[]
+    list: ITagsList[]
 }
 
 export class TagsList extends React.Component<{}, ITagsListState> {
 
-    readonly state: ITagsListState = {list: new Array<ITagsListList>()}
+    readonly state: ITagsListState = {list: new Array<ITagsList>()}
 
     async componentDidMount(): Promise<void> {
         let rep = await getAllTagsWithArticles()
@@ -30,7 +29,7 @@ export class TagsList extends React.Component<{}, ITagsListState> {
     render() {
         return (
             <Tabs>
-                {this.state.list.map((tag: ITagsListList, index: number) =>
+                {this.state.list.map((tag: ITagsList, index: number) =>
                     <TabPane tab={tag.name} key={index.toString()}>
                         {
                             tag.articles.map((article: Article) =>

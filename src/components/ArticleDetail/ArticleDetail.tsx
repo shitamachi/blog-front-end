@@ -6,7 +6,7 @@ import { Typography } from "antd"
 import './ArticleDetail.css'
 import ReactMarkdown from "react-markdown"
 import Categories, { ICategory } from "../Categories/Categories"
-import { Tags } from "../Tags"
+import Tags from "../Tags"
 
 const { Title, Text } = Typography
 

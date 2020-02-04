@@ -1,14 +1,16 @@
-import Axios, {AxiosResponse} from 'axios'
-import {Article} from "../components/ArticleList/ArticleList"
-import {IArchive} from '../components/Archive/Archive'
-import {ICategory} from '../components/Categories/Categories'
-import {ICategoriesList} from '../components/CategoriesList'
-import {Tag} from '../stores/TagStore'
-import {SignInView} from "../pages/SignIn"
-import {User} from "../stores/UserStore"
-import {ITagsListList} from "../components/TagsList"
+import Axios, { AxiosResponse } from 'axios'
+import { Article } from "../components/ArticleList/ArticleList"
+import { IArchive } from '../components/Archive/Archive'
+import { ICategory } from '../components/Categories/Categories'
+import { ICategoriesList } from '../components/CategoriesList'
+import { SignInView } from "../pages/login/SignIn"
+import { ITagsList } from "../components/TagsList"
+import { Tag } from '@/models/TagState'
+import { User } from '@/models/UserState'
 
-const BASE_URL: string = "http://localhost:5000/api"
+export const BASE_HOST = "http://39.106.194.134:5000"
+// export const BASE_HOST = "http://localhost:5000"
+export const BASE_URL: string = `${BASE_HOST}/api`
 const ARTICLES_URL: string = BASE_URL + '/articles'
 const ARCHIVE_URL: string = BASE_URL + '/archives'
 const CATEGORIES_URL: string = BASE_URL + '/categories'
@@ -39,12 +41,13 @@ Axios.interceptors.request.use(config => {
 })
 
 Axios.interceptors.response.use(rep => {
-        return rep
-    },
+    return rep
+},
     error => {
         Object.keys(error)
         if (error.response) {
             console.log('response status:' + error.response.status)
+            // if (error.response.config.url !== SIGN_IN_URL)
             switch (error.response.status) {
                 case 401:
                     localStorage.removeItem("token")
@@ -81,12 +84,12 @@ export const postNewArticle = async (article: Article) => {
 }
 
 export const putEditArticle = (id: string, newValue: string) => {
-    Axios.put(ARTICLES_URL, {id: id, content: newValue})
+    Axios.put(ARTICLES_URL, { id: id, content: newValue })
         .then(response => console.log(response.data))
         .catch(err => console.log(err))
 }
 
-export const deleteArticle = async (id: string) => {
+export const deleteOneArticle = async (id: number) => {
     let rep: AxiosResponse<Response<{ isDeleted: string }>> = await Axios.delete(`${ARTICLES_URL}/${id}`)
     return rep
 }
@@ -138,31 +141,48 @@ export const getArchives = async (): Promise<Array<IArchive>> => {
     }
 }
 
-export const getAllCategoriesWithArticles = async (): Promise<Array<ICategoriesList> | void> => {
+export const getAllCategoriesWithArticles = async (): Promise<Array<ICategoriesList>> => {
     try {
         let rep: AxiosResponse<Response<ICategoriesList>> = await Axios.get(CATEGORIES_URL)
         return rep.data.data as ICategoriesList[]
     } catch (err) {
-        return console.log(err)
+        console.log(err)
+        return [] as ICategoriesList[]
     }
 }
 
-export const getAllCategoriesByArticleId = async (id: string): Promise<Array<ICategory> | void> => {
+export const getAllCategoriesByArticleId = async (id: string | number): Promise<Array<ICategory>> => {
     try {
         let rep: AxiosResponse<Response<ICategory>> = await Axios.get(`${CATEGORIES_URL}/${id}`)
         return rep.data.data as Array<ICategory>
     } catch (err) {
-        return console.log(err)
+        console.log(err)
+        return new Array<ICategory>()
     }
 }
 
-export const getAllTagsWithArticles = async (): Promise<ITagsListList[] | null> => {
+export const addNewCategory = async (category: ICategory | { name: string, description: string }) => {
     try {
-        let rep: AxiosResponse<Response<Tag[]>> = await Axios.get(TAGS_URL)
-        return rep.data.data as ITagsListList[]
+        let rep: AxiosResponse<Response<ICategory>> = await Axios.post(CATEGORIES_URL, category)
+        return rep.data as Response<ICategory>
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const deleteCategories = async (categories: ICategory[]) => {
+    let rep: AxiosResponse<Response<ICategory[]>> = await Axios.delete(CATEGORIES_URL, { data: categories })
+    return rep.data
+}
+
+export const getAllTagsWithArticles = async (): Promise<ITagsList[]> => {
+    try {
+        let rep: AxiosResponse<Response<ITagsList>> = await Axios.get(TAGS_URL)
+        console.log(rep)
+        return rep.data.data as ITagsList[]
     } catch (e) {
         console.log(e)
-        return null
+        return new Array<ITagsList>()
     }
 }
 
@@ -176,7 +196,29 @@ export const getAllTagsByArticleId = async (id: number): Promise<Array<Tag>> => 
     }
 }
 
-export const getUserInfo = async (id: string) => {
+export const addNewTag = async (tag: Tag | { name: string, description: string }) => {
+    try {
+        let rep: AxiosResponse<Response<Tag>> = await Axios.post(TAGS_URL, tag)
+        return rep.data as Response<Tag>
+    } catch (err) {
+        console.log(err);
+        return undefined
+    }
+}
+
+
+export const deleteTags = async (toDeletedTags: Tag[]) => {
+    try {
+        let rep: AxiosResponse<Response<Tag[]>> = await Axios.delete(TAGS_URL, { data: toDeletedTags })
+        console.log(rep);
+        return rep.data
+    } catch (err) {
+        console.log(err);
+
+    }
+}
+
+export const getUserInfo = async () => {
     try {
         let rep: AxiosResponse<Response<User>> = await Axios.get(`${ACCOUNT_URL}/id`)
         return rep.data.data as User

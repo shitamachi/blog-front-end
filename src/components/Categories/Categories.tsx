@@ -1,14 +1,12 @@
 import React from 'react'
 import { Typography } from 'antd'
 import { Link } from 'react-router-dom'
+import { GlobalSettingState } from '../../pages/admin/articles/EditTagCategory'
 
 const { Text } = Typography
 
-export interface ICategory {
-    id: string
-    name: string
-    createDate: string
-    modifiedDate: string
+export interface ICategory extends GlobalSettingState{
+
 }
 
 interface ICategoriesProps {
