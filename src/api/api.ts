@@ -8,9 +8,9 @@ import { ITagsList } from "../components/TagsList"
 import { Tag } from '@/models/TagState'
 import { User } from '@/models/UserState'
 
-export const BASE_HOST = "http://39.106.194.134:5000"
-// export const BASE_HOST = "http://localhost:5000"
+export const BASE_HOST = process.env.REACT_APP_BASE_HOST
 export const BASE_URL: string = `${BASE_HOST}/api`
+
 const ARTICLES_URL: string = BASE_URL + '/articles'
 const ARCHIVE_URL: string = BASE_URL + '/archives'
 const CATEGORIES_URL: string = BASE_URL + '/categories'
