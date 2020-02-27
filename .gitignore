@@ -24,3 +24,10 @@ yarn-error.log*
 
 # WebStorm
 .idea
+
+# vscode
+.vscode
+
+# env file
+.env
+.env.development

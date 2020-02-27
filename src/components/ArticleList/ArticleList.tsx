@@ -1,9 +1,9 @@
 import React from "react"
-import {getAllArticles, Response} from '../../api/api'
+import {getAllArticles} from '../../api/api'
 import ArticleItem from "../ArticleItem/ArticleItem"
 
 export interface Article {
-    id: number
+    id?: number
     title: string
     content: string
     preview?: string
@@ -17,11 +17,9 @@ interface IArticleListState {
 class ArticleList extends React.Component<{}, IArticleListState> {
     readonly state = {articles: Array<Article>()}
 
-    componentDidMount(): void {
-        getAllArticles().then((rep: Response<Article>) => {
-            console.log(rep)
-            this.setState({articles: rep.data as Array<Article>})
-        })
+    async componentDidMount(): Promise<void> {
+        let rep: Article[] = await getAllArticles() as Article[]
+        this.setState({articles: rep})
     }
 
     render() {

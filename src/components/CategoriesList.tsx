@@ -1,9 +1,9 @@
 import React from 'react'
-import { ICategory } from './Categories/Categories';
-import { Tabs } from 'antd';
-import { Article } from './ArticleList/ArticleList';
-import { getAllCategoriesWithArticles } from '../api/api';
-import { Link } from 'react-router-dom';
+import { ICategory } from './Categories/Categories'
+import { Tabs } from 'antd'
+import { Article } from './ArticleList/ArticleList'
+import { getAllCategoriesWithArticles } from '../api/api'
+import { Link } from 'react-router-dom'
 
 const { TabPane } = Tabs
 
@@ -31,7 +31,11 @@ class CategoriesList extends React.Component<{}, ICategoriesListState> {
                     <TabPane tab={category.name} key={index.toString()}>
                         {
                             category.articles.map((article: Article) =>
-                                <p key={article.id}><Link to={`/article/${article.id}`} >{article.title}</Link></p>)
+                                <p key={article.id}>
+                                    <Link to={`/article/${article.id}`}>
+                                        {article.title}
+                                    </Link>
+                                </p>)
                         }
                     </TabPane>
                 )}
