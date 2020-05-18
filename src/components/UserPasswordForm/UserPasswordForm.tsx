@@ -1,6 +1,9 @@
 import React from 'react'
-import {Input, Button, Form, Checkbox, Icon} from "antd"
-import {FormComponentProps} from 'antd/es/form/Form'
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Checkbox } from "antd";
+import { FormComponentProps } from '@ant-design/compatible/es/form/Form';
 import './UserPasswordForm.css'
 
 type UserPasswordFormType = "sign-in" | "sign-up"
@@ -49,7 +52,7 @@ class UserPasswordForm extends React.Component<UserPasswordProps, UserPasswordSt
                         rules: [{required: true, message: 'Please input your username!'}],
                     })(
                         <Input
-                            prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                            prefix={<UserOutlined style={{color: 'rgba(0,0,0,.25)'}} />}
                             placeholder="Username"
                         />,
                     )}
@@ -62,7 +65,7 @@ class UserPasswordForm extends React.Component<UserPasswordProps, UserPasswordSt
                                 : {required: true, min: 3, message: '密码最少需要三位'}],
                     })(
                         <Input
-                            prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                            prefix={<LockOutlined style={{color: 'rgba(0,0,0,.25)'}} />}
                             type="password"
                             placeholder="Password"
                         />,
@@ -89,7 +92,7 @@ class UserPasswordForm extends React.Component<UserPasswordProps, UserPasswordSt
                     )
                 }
             </Form>
-        )
+        );
     }
 }
 

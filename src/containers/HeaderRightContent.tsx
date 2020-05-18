@@ -1,5 +1,6 @@
 import React from 'react'
-import { Dropdown, Icon, Avatar } from "antd"
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Avatar } from "antd";
 // import { inject, observer } from "mobx-react"
 // import { UserStore } from "../../../stores/UserStore"
 import { HeaderDropDown } from "../components/HeaderDropdown/HeaderDropdown"
@@ -24,10 +25,10 @@ class HeaderRightContent extends React.Component<HeaderRightContentProps> {
                     onClick={(event: React.MouseEvent) => event.preventDefault()}>
                     {currentUser?.userName} 
                     <Avatar size={"small"} src={currentUser.avatar}  style={{margin: '7px'}}/>
-                    <Icon type="down" />
+                    <DownOutlined />
                 </a>
             </Dropdown>
-        )
+        );
     }
 }
 
