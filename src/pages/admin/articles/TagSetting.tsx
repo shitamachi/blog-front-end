@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { GenericTable, NewItemType } from "../../../components/GenericTable/GenericTable"
 import { getAllTagsWithArticles, addNewTag, deleteTags } from "@/api/api"
-import { TableRowSelection } from "antd/lib/table"
+import { TableRowSelection } from 'antd/lib/table/interface'
 import { ColumnProps } from "antd/es/table"
 import Axios from "axios"
 import { message } from 'antd'

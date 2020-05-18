@@ -12,6 +12,7 @@ import { SignIn } from "@/pages/login/SignIn"
 import { Test } from "@/pages/Test"
 import { SignUp } from "@/pages/register/SignUp"
 import { TagsList } from "./TagsList"
+import { VerifyEmail } from "@/pages/register/VerifyEmail"
 
 const { Content } = Layout
 
@@ -67,6 +68,9 @@ class MainContent extends React.Component<IMainContentProps> {
                         <Route exact path="/tags" component={TagsList} />
                         <Route exact path="/login" component={SignIn} />
                         <Route exact path="/register" component={SignUp} />
+                        <Route exact path="/register/verify" render={props => (
+                            <VerifyEmail {...props} token={props.location.state} />
+                        )} />
                         <Route path="/test" component={Test} />
                         {/* <Route path="*" component={NotFound}/> */}
                     </Switch>

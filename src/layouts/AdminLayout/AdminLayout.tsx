@@ -1,5 +1,6 @@
 import React from "react"
-import {Layout, Menu, Breadcrumb, Icon, Card} from 'antd'
+import { FormOutlined, UserOutlined } from '@ant-design/icons';
+import { Layout, Menu, Breadcrumb, Card } from 'antd';
 import {Route, Switch, RouteComponentProps, Redirect} from "react-router"
 import NotFound from "../../pages/results/NotFound"
 import "./AdminLayout.css"
@@ -49,7 +50,7 @@ class AdminLayout extends React.Component<RouteComponentProps<{ id: string }>, I
                     >
                         <Menu.Item key="/admin/settings">
                             <NavLink to={"/admin/settings"}>
-                                <Icon type="user"/>
+                                <UserOutlined />
                                 <span>User Setting</span>
                             </NavLink>
                         </Menu.Item>
@@ -57,29 +58,29 @@ class AdminLayout extends React.Component<RouteComponentProps<{ id: string }>, I
                         <SubMenu
                             key="sub1"
                             title={
-                                <span><Icon type="form"/><span>Article Setting</span></span>
+                                <span><FormOutlined /><span>Article Setting</span></span>
                             }>
                             <Menu.Item key="/admin/articles">
                                 <NavLink to={"/admin/articles"}>
-                                    <Icon type="form"/>
+                                    <FormOutlined />
                                     <span>Article List</span>
                                 </NavLink>
                             </Menu.Item>
                             <Menu.Item key="/admin/articles/add">
                                 <NavLink to={"/admin/articles/add"}>
-                                    <Icon type="form"/>
+                                    <FormOutlined />
                                     <span>Add Article</span>
                                 </NavLink>
                             </Menu.Item>
                             <Menu.Item key="/admin/category">
                                 <NavLink to={"/admin/category"}>
-                                    <Icon type="form"/>
+                                    <FormOutlined />
                                     <span>Category</span>
                                 </NavLink>
                             </Menu.Item>
                             <Menu.Item key="/admin/tag">
                                 <NavLink to={"/admin/tag"}>
-                                    <Icon type="form"/>
+                                    <FormOutlined />
                                     <span>Tag</span>
                                 </NavLink>
                             </Menu.Item>
@@ -120,7 +121,7 @@ class AdminLayout extends React.Component<RouteComponentProps<{ id: string }>, I
                     <Footer style={{textAlign: 'center'}}>2020 Created by Jiang Guo</Footer>
                 </Layout>
             </Layout>
-        )
+        );
     }
 }
 

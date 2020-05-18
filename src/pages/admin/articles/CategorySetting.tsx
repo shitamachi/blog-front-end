@@ -1,10 +1,10 @@
 import React, { FormEvent, useEffect, useState, useRef } from 'react'
 // import {ICategory} from "../../components/Categories/Categories"
-import { ColumnProps } from "antd/es/table/interface"
+import { ColumnProps } from 'antd/lib/table'
 import { getAllCategoriesWithArticles, addNewCategory, deleteCategories } from "../../../api/api"
 // import {ICategoriesList} from "../../components/CategoriesList"
 import { GenericTable, NewItemType } from "../../../components/GenericTable/GenericTable"
-import { TableRowSelection } from "antd/lib/table"
+import { TableRowSelection } from 'antd/lib/table/interface'
 import { message } from "antd"
 import { useHistory } from "react-router-dom"
 import { EditState, GlobalSettingState } from "./EditTagCategory"

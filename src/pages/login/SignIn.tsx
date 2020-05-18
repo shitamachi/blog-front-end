@@ -1,6 +1,6 @@
 import React from "react"
 import {signIn, Response, getCurrentUser} from "@/api/api"
-import {FormComponentProps} from 'antd/es/form'
+import { FormComponentProps } from '@ant-design/compatible/es/form';
 import {CallHistoryMethodAction, push} from "connected-react-router"
 import {CallBackDataType, WrappedUserPasswordForm} from "../../components/UserPasswordForm/UserPasswordForm";
 import {setCurrentUser} from "@/actions";

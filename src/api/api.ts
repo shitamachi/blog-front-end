@@ -19,6 +19,7 @@ const TAGS_URL: string = BASE_URL + '/tags'
 const ACCOUNT_URL: string = BASE_URL + '/account'
 const SIGN_IN_URL: string = ACCOUNT_URL + '/signIn'
 const SIGN_UP_URL: string = ACCOUNT_URL + '/signUp'
+const VERIFY_ACCOUNT_URL: string = SIGN_UP_URL + '/verify'
 const SIGN_OUT_URL: string = ACCOUNT_URL + '/signOut'
 const PASSWORD_URL: string = ACCOUNT_URL + '/password'
 
@@ -109,17 +110,23 @@ export const signIn = async (username: string, password: string, rememberMe: boo
     }
 }
 
-export const signUp = async (username: string, password: string): Promise<Response<{ username: string, token: string }>> => {
+export const signUp = async (username: string, password: string, email: string): Promise<Response<{ username: string, token: string }>> => {
     try {
         let rep: AxiosResponse<Response<{ username: string, token: string }>> = await Axios.post(SIGN_UP_URL, {
             username: username,
-            password: password
+            password: password,
+            email: email
         })
         return rep.data
     } catch (error) {
         console.log(error)
         return error
     }
+}
+
+export const verifyCode = async (token: string, code: string) => {
+    let rep: AxiosResponse<Response<{ token: string, code: string }>> = await Axios.post(VERIFY_ACCOUNT_URL, { token: token, code: code })
+    return rep.data
 }
 
 export const signOut = async () => {

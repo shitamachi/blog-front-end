@@ -1,6 +1,9 @@
 import React from "react"
-import { Button, Form, Icon, Input, message } from "antd"
-import { FormComponentProps } from "antd/es/form"
+import { LockOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Input, message } from "antd";
+import { FormComponentProps } from '@ant-design/compatible/es/form';
 import { updatePassword } from "@/api/api"
 
 interface UpdatePasswordFormProps extends FormComponentProps {
@@ -40,7 +43,7 @@ const UpdatePasswordForm: React.FC<UpdatePasswordFormProps> = (props: UpdatePass
                     rules: [{ required: true, message: 'Please input your old Password!' }],
                 })(
                     <Input
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)', marginBottom: '9px' }} />}
+                        prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)', marginBottom: '9px' }} />}
                         type="password"
                         placeholder="Old Password"
                     />,
@@ -51,7 +54,7 @@ const UpdatePasswordForm: React.FC<UpdatePasswordFormProps> = (props: UpdatePass
                     rules: [{ required: true, message: 'Please input your new Password!' }],
                 })(
                     <Input
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)', marginBottom: '9px' }} />}
+                        prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)', marginBottom: '9px' }} />}
                         type="password"
                         placeholder="New Password"
                     />,
@@ -66,7 +69,7 @@ const UpdatePasswordForm: React.FC<UpdatePasswordFormProps> = (props: UpdatePass
                     }],
                 })(
                     <Input
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)', marginBottom: '9px' }} />}
+                        prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)', marginBottom: '9px' }} />}
                         type="password"
                         placeholder="Retype New Password"
                     />,
@@ -76,7 +79,7 @@ const UpdatePasswordForm: React.FC<UpdatePasswordFormProps> = (props: UpdatePass
                 Submit
                 </Button>
         </Form>
-    )
+    );
 }
 
 export const WrappedUpdatePasswordForm = Form.create<UpdatePasswordFormProps>()(UpdatePasswordForm)

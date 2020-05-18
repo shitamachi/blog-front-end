@@ -1,8 +1,8 @@
 import React, { SetStateAction, Dispatch } from 'react'
 import { ColumnProps } from "antd/es/table"
-import { TableRowSelection } from "antd/lib/table"
 import { Button, Divider, Table, Modal, Input } from "antd"
 import { Link } from "react-router-dom"
+import { TableRowSelection } from 'antd/lib/table/interface'
 
 type OwnIdType = { id: string | number }
 type SettingType = "article" | "tag" | "category"

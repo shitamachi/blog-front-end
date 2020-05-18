@@ -5,7 +5,7 @@ const {TabPane} = Tabs
 export const Dashboard: React.FC = () => {
     return (
         <div>
-            <Row type="flex" justify="start">
+            <Row justify="start">
                 <Col span={4}>
                     <Statistic title="Articles" value={112893}/>
                 </Col>

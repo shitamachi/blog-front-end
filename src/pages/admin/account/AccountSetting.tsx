@@ -1,5 +1,6 @@
 import React from "react"
-import {Menu, Icon} from "antd"
+import { SettingOutlined } from '@ant-design/icons';
+import { Menu } from "antd";
 import {ClickParam} from "antd/es/menu"
 import BasicSettingFrom from "./BasicSetting"
 import {SecuritySetting} from "./SecuritySetting/SecuritySetting"
@@ -59,11 +60,11 @@ class AccountSetting extends React.Component<IAccountSettingProps, IAccountSetti
                     mode="horizontal"
                 >
                     <Menu.Item key="as_basic">
-                        <Icon type="setting"/>
+                        <SettingOutlined />
                         基本设置
                     </Menu.Item>
                     <Menu.Item key="as_security">
-                        <Icon type="setting"/>
+                        <SettingOutlined />
                         安全设置
                     </Menu.Item>
                 </Menu>
@@ -71,7 +72,7 @@ class AccountSetting extends React.Component<IAccountSettingProps, IAccountSetti
                     this.renderItem(this.state.currentItem)
                 }
             </div>
-        )
+        );
     }
 }
 

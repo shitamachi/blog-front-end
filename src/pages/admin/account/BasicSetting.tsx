@@ -1,6 +1,8 @@
 import React from "react"
-import { FormComponentProps } from "antd/es/form"
-import { Avatar, Button, Form, Input, Upload } from "antd"
+import { FormComponentProps } from '@ant-design/compatible/es/form';
+import { Form, Icon as LegacyIcon } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Avatar, Button, Input, Upload } from "antd";
 import { updateUser, BASE_HOST } from "@/api/api"
 import { UploadChangeParam } from "antd/lib/upload/interface"
 import { User } from "@/models/UserState"
@@ -42,7 +44,7 @@ class BasicSetting extends React.Component<UserBasicSettingFormProps> {
                                 }
                             }}
                             headers={{ "Authorization": `Bearer ${localStorage.getItem("token")}` }}>
-                            <Avatar shape={"circle"} size={72} icon={"user"} src={user.avatar} />
+                            <Avatar shape={"circle"} size={72} icon={<LegacyIcon type={"user"} />} src={user.avatar} />
                         </Upload>)}
                 </Form.Item>
                 <Form.Item label={"email"}>
@@ -61,7 +63,7 @@ class BasicSetting extends React.Component<UserBasicSettingFormProps> {
                     Save Change
                 </Button>
             </Form>
-        )
+        );
     }
 }
 

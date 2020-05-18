@@ -1,6 +1,9 @@
 import React, { FormEvent, useEffect, useState } from 'react'
-import { Button, Form, Icon, Input } from "antd"
-import { FormComponentProps } from "antd/es/form"
+import { BlockOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Input } from "antd";
+import { FormComponentProps } from '@ant-design/compatible/es/form';
 import TextArea from "antd/es/input/TextArea"
 import { RouteComponentProps } from "react-router"
 import { withRouter } from 'react-router-dom'
@@ -52,35 +55,33 @@ export const EditTagCategory: (props: Props) => React.ReactElement<Props> = (pro
     // }, [props.form])
     },[props])
 
-    return (
-        <>
-            <Form layout={"vertical"} onSubmit={handleSubmit}>
-                <Form.Item label={`${currentEditSetting} name`}>
-                    {getFieldDecorator('name', {
-                        rules: [{ required: true, message: 'please input a name' }]
-                    })(
-                        <Input
-                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder={`${props.location.search}`}
-                        />
-                    )}
-                </Form.Item>
-                <Form.Item label={`${currentEditSetting} description`}>
-                    {getFieldDecorator('description', {
-                        rules: [{ required: true, message: 'please input a name' }]
-                    })(
-                        <TextArea
-                            autoSize
-                            placeholder={"description"}
-                        />
-                    )}
-                </Form.Item>
-                <Button type={"primary"} htmlType={"submit"}>
-                    Save Change
-                </Button>
-            </Form>
-        </>
-    )
+    return <>
+        <Form layout={"vertical"} onSubmit={handleSubmit}>
+            <Form.Item label={`${currentEditSetting} name`}>
+                {getFieldDecorator('name', {
+                    rules: [{ required: true, message: 'please input a name' }]
+                })(
+                    <Input
+                        prefix={<BlockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        placeholder={`${props.location.search}`}
+                    />
+                )}
+            </Form.Item>
+            <Form.Item label={`${currentEditSetting} description`}>
+                {getFieldDecorator('description', {
+                    rules: [{ required: true, message: 'please input a name' }]
+                })(
+                    <TextArea
+                        autoSize
+                        placeholder={"description"}
+                    />
+                )}
+            </Form.Item>
+            <Button type={"primary"} htmlType={"submit"}>
+                Save Change
+            </Button>
+        </Form>
+    </>;
 }
 
 export const EditTagCategoryTable = Form.create<EditTagCategoryProps>({
