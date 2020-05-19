@@ -4,9 +4,9 @@ import { deleteOneArticle, getAllArticles, getAllTagsByArticleId, getAllCategori
 import { Article } from "../../../components/ArticleList/ArticleList"
 import { Tag } from "@/models/TagState"
 import { RouteComponentProps, withRouter } from "react-router-dom"
-import { ColumnProps } from "antd/lib/table"
+import { ColumnProps } from "antd/es/table"
+import { TableRowSelection } from 'antd/lib/table/interface'
 import { GenericTable } from "../../../components/GenericTable/GenericTable"
-import { TableRowSelection } from "antd/lib/table/interface"
 
 type ArticleWithTag = {
     article: Article,

@@ -1,8 +1,8 @@
 import React, { SetStateAction, Dispatch } from 'react'
 import { ColumnProps } from "antd/es/table"
+import { TableRowSelection } from 'antd/lib/table/interface'
 import { Button, Divider, Table, Modal, Input } from "antd"
 import { Link } from "react-router-dom"
-import { TableRowSelection } from 'antd/lib/table/interface'
 
 type OwnIdType = { id: string | number }
 type SettingType = "article" | "tag" | "category"
@@ -110,7 +110,7 @@ export class GenericTable<T extends OwnIdType> extends React.Component<GenericTa
                         () => (
                             this.props.selectedRows.length > 0
                                 ? (<React.Fragment>
-                                    <Button type={"danger"}
+                                    <Button danger
                                         onClick={async (e) => {
                                             await this.props.handleDeleteData(e)
                                         }}>

@@ -59,7 +59,7 @@ class EditArticle extends React.Component<EditArticleProps, EditArticleState> {
         if (nextProps.location.state === null || nextProps.location.state === undefined) {
             return prevState
         }
-        return { ...prevState, article: nextProps.location.state }
+        return { ...prevState, article: nextProps.location.state as Article}
     }
 
     componentDidMount() {

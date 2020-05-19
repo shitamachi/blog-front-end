@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react'
-import { BlockOutlined } from '@ant-design/icons';
+import { LockOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import { Button, Input } from "antd";
@@ -62,7 +62,7 @@ export const EditTagCategory: (props: Props) => React.ReactElement<Props> = (pro
                     rules: [{ required: true, message: 'please input a name' }]
                 })(
                     <Input
-                        prefix={<BlockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                         placeholder={`${props.location.search}`}
                     />
                 )}

@@ -6,9 +6,9 @@ import NotFound from "../../pages/results/NotFound"
 import "./AdminLayout.css"
 import {NavLink} from "react-router-dom";
 import HeaderRightContent from "../../containers/HeaderRightContent";
-import ArticleSettingWithRouter from "../../pages/admin/articles/ArticleSetting";
+import ArticleSettingWithRouter, { EditableArticle } from "../../pages/admin/articles/ArticleSetting";
 import EditArticleWithRouter from "../../pages/admin/articles/EditArticle";
-import EditTagCategoryTable, {EditTagCategory} from "../../pages/admin/articles/EditTagCategory";
+import EditTagCategoryTable, {EditTagCategory, GlobalSettingState} from "../../pages/admin/articles/EditTagCategory";
 import {TagSetting} from "../../pages/admin/articles/TagSetting";
 import {Dashboard} from "../../pages/admin/Dashboard";
 import AccountSetting from "../../pages/admin/account/AccountSetting";
@@ -106,11 +106,11 @@ class AdminLayout extends React.Component<RouteComponentProps<{ id: string }>, I
                                        component={ArticleSettingWithRouter}/>
                                 {/*<Route exact path={`${this.props.match.path}/articles/:id`} component={EditArticleWithRouter}/>*/}
                                 <Route exact path={`${this.props.match.path}/articles/:id`} render={props => (
-                                    <EditArticleWithRouter {...props} article={this.props.location.state}/>)
+                                    <EditArticleWithRouter {...props} article={this.props.location.state as EditableArticle}/>)
                                 }/>
                                 <Route exact path={`${this.props.match.path}/category`} component={CategorySetting}/>
                                 <Route exact path={`${this.props.match.path}/edit`} render={props => (
-                                    <EditTagCategoryTable {...props} item={this.props.location.state}/>)
+                                    <EditTagCategoryTable {...props} item={this.props.location.state as GlobalSettingState}/>)
                                 }/>
                                 <Route exact path={`${this.props.match.path}/tag`} component={TagSetting}/>
                                 <Route exact path={`${this.props.match.path}/tag/edit`} component={EditTagCategory}/>
