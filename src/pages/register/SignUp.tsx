@@ -5,6 +5,8 @@ import { Form, Input, Button, Modal } from "antd"
 import { FormInstance } from "antd/lib/form"
 import { history } from "@/reducers"
 
+export type RegisterUserType = { name: string, email: string }
+
 interface SignUpState {
     username: string
     password: string
@@ -34,21 +36,35 @@ export class SignUp extends React.Component<{}, SignUpState> {
         console.log("sign up...")
         let rep = await signUp(username, password, email)
         if (rep.status === 200) {
-            localStorage.removeItem("verify_token")
-            const { token } = rep.data as { username: string, email: string, token: string }
-            localStorage.setItem("verify_token", token)
-            history.push("/register/verify", token)
+            history.push("/register/verify", { name: username, email: email })
         } else {
             this.warning(rep.message)
+            this.setState({ loading: false })
         }
     }
 
+    reset = () => {
+        this.formRef.current?.setFieldsValue({
+            username: "", password: "", email: "", confirm: "", loading: false
+        })
+    }
+
+    layout = {
+        labelCol: { span: 8 },
+        wrapperCol: { span: 16 },
+    };
+
+    tailLayout = {
+        wrapperCol: { offset: 4 },
+    };
 
     render() {
         const { loading } = this.state
 
         return (
             <Form
+                {...this.layout}
+                layout={"vertical"}
                 ref={this.formRef}
                 name="register"
                 onFinish={this.onFinish}
@@ -102,8 +118,8 @@ export class SignUp extends React.Component<{}, SignUpState> {
                     <Input.Password />
                 </Form.Item>
                 <Form.Item
-                    name="comfirm"
-                    label="Comfirm Password"
+                    name="confirm"
+                    label="Confirm Password"
                     rules={[
                         {
                             required: true,
@@ -121,9 +137,12 @@ export class SignUp extends React.Component<{}, SignUpState> {
                     ]}>
                     <Input.Password />
                 </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" loading={loading}>
+                <Form.Item {...this.tailLayout} >
+                    <Button type="primary" htmlType="submit" loading={loading} style={{ marginRight: "10px" }}>
                         Register
+                    </Button>
+                    <Button htmlType="button" onClick={this.reset} style={{ marginLeft: "5px" }}>
+                        Reset
                     </Button>
                 </Form.Item>
             </Form >

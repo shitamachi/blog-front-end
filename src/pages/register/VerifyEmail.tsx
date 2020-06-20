@@ -2,24 +2,27 @@ import React, { useState, useEffect } from "react"
 import { Form, Result, Input, Button, Modal } from "antd"
 import { useHistory, useLocation } from "react-router-dom"
 import { verifyCode } from "@/api/api"
+import { RegisterUserType } from "./SignUp"
 
 
 interface VerifyEmailProps {
-    token?: string
+    registerUser: RegisterUserType
 }
 
 export const VerifyEmail: React.FC<VerifyEmailProps> = (props: VerifyEmailProps) => {
 
     const history = useHistory()
-    const location = useLocation<string>()
+    const location = useLocation<RegisterUserType | null>()
 
     const [resendButtonDisabled, setResendButtonDisabled] = useState(true)
     const [waitTime, setWaitTime] = useState(3)
     const [buttonText, setButtonText] = useState(`wait ${waitTime}s`)
-    const [token, setToken] = useState<string | null>(null)
+    const [registerUser, setRegisterUser] = useState<{ name: string, email: string } | null>(null)
 
     useEffect(() => {
-        setToken(localStorage.getItem("verify_token") === location.state ? location.state : null)
+        setRegisterUser(location.state)
+        console.log(registerUser);
+
         let interval: NodeJS.Timeout = setInterval(() => {
             if (waitTime === 0) {
                 clearInterval(interval)
@@ -51,21 +54,27 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props: VerifyEmailProps)
     }
 
     const onFinish = async (value: { [name: string]: any }) => {
-        if (token !== null) {
-            let result = await verifyCode(token, value.code)
-            if (result.status === 200) {
-                Modal.success({
-                    content: 'you have successfully register!',
-                    onOk: () => {
-                        history.push("/admin")
-                    }
-                });
-            }
+        if (registerUser === null) {
+            Modal.error({
+                title: "oh,some thing happened",
+                content: 'you may need restart register',
+            });
+            return
         }
-        Modal.warning({
-            title: "oh,some thing happened",
-            content: 'please try again',
-        });
+        let result = await verifyCode(registerUser.name, registerUser.email, value.code)
+        if (result.status === 200) {
+            Modal.success({
+                content: 'you have successfully register!',
+                onOk: () => {
+                    history.push("/admin")
+                }
+            });
+        } else {
+            Modal.error({
+                title: "oh,some thing happened",
+                content: result.message,
+            });
+        }
     }
 
     const invaildTokenResult =
@@ -88,7 +97,7 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props: VerifyEmailProps)
         <>
             {
                 //TODO do more check
-                props.token ?
+                props.registerUser.email ?
                     (<Result
                         title="you need to verify your email,please input code we just send to your email box"
                         extra={

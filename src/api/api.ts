@@ -124,8 +124,10 @@ export const signUp = async (username: string, password: string, email: string):
     }
 }
 
-export const verifyCode = async (token: string, code: string) => {
-    let rep: AxiosResponse<Response<{ token: string, code: string }>> = await Axios.post(VERIFY_ACCOUNT_URL, { token: token, code: code })
+export const verifyCode = async (username: string, email: string, code: string) => {
+    let rep: AxiosResponse<Response<string>> = await Axios.post(VERIFY_ACCOUNT_URL,
+        { username: username, email: email, code: code }
+    )
     return rep.data
 }
 

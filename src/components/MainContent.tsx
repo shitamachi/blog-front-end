@@ -69,7 +69,7 @@ class MainContent extends React.Component<IMainContentProps> {
                         <Route exact path="/login" component={SignIn} />
                         <Route exact path="/register" component={SignUp} />
                         <Route exact path="/register/verify" render={props => (
-                            <VerifyEmail {...props} token={props.location.state} />
+                            <VerifyEmail {...props} registerUser={props.location.state as { name: string, email: string }} />
                         )} />
                         <Route path="/test" component={Test} />
                         {/* <Route path="*" component={NotFound}/> */}
